@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @real_estate
+
+div
+  => link_to "Edit this real estate", edit_real_estate_path(@real_estate)
+  '|
+  =< link_to "Back to real estates", real_estates_path
+
+  = button_to "Destroy this real estate", @real_estate, method: :delete

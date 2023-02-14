@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Reservations
+
+#reservations
+  - @reservations.each do |reservation|
+    == render reservation
+    p
+      = link_to "Show this reservation", reservation
+
+= link_to "New reservation", new_reservation_path

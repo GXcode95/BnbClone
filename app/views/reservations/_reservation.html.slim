@@ -1,0 +1,16 @@
+div id="#{dom_id reservation}"
+  p
+    strong Checkin:
+    =< reservation.checkin
+  p
+    strong Checkout:
+    =< reservation.checkout
+  p
+    strong Real estate:
+    =< reservation.real_estate_id
+  p
+    strong Guest:
+    =< reservation.guest_id
+  p
+    strong Validated:
+    =< reservation.validated
