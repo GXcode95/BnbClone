@@ -1,6 +1,6 @@
-div.nested-fields.flex.items-center
+div.nested-fields.flex.items-center id="#{"day-#{f.object.id}" unless f.object.new_record? }"
   = f.input :date, as: :date
-  = link_to( 'X',
-            "#",
-            data: { action: "nested-form#remove_association" },
-            class: 'text-red')
+  - if f.object.new_record?
+    = link_to( 'X', "#", data: { action: "nested-form#remove_association" })
+  - else 
+    = link_to( 'Delete', day_path(f.object.id), data: { turbo_method: :delete }, class: 'btn')
