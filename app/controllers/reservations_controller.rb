@@ -1,7 +1,9 @@
 class ReservationsController < ApplicationController
   load_and_authorize_resource
 
-  def index; end
+  def index
+    @reservations = params[:host] ? Reservation.by_host(current_user) : Reservation.by_guest(current_user)
+  end
 
   def show; end
 

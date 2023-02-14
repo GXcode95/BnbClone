@@ -32,6 +32,9 @@ class Reservation < ApplicationRecord
 
   validate :checkin_and_checkout_are_on_free_period
 
+  scope :by_host, ->(host) { includes(:real_estate).where(real_estate: { host: host}) }
+  scope :by_guest, ->(guest) { where(guest: guest) }
+
   after_create :send_reservation_created_mail
   after_update :send_reservation_accepted_mail, if: -> { saved_change_to_validated? }
   after_destroy :send_reservation_canceled_mail
