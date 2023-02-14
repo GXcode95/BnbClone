@@ -3,15 +3,15 @@ p style="color: green" = notice
 == render @real_estate
 
 div
-  => link_to "Edit this real estate", edit_real_estate_path(@real_estate)
+  => link_to "Edit this real estate", edit_real_estate_path(@real_estate), class: 'btn btn-primary'
   '|
-  =< link_to "Back to real estates", real_estates_path
+  =< link_to "Back to real estates", real_estates_path, class: 'btn'
 
-  = button_to "Destroy this real estate", @real_estate, method: :delete
+  = button_to "Destroy this real estate", @real_estate, method: :delete, class: 'btn btn-error'
   - if current_user == @real_estate.host 
     - unless @reservation.validated
       = simple_form_for @reservation do |f|
         = f.hidden_field :validated, value: true
-        = f.submit :Validate, class: 'btn'
+        = f.submit :Validate, class: 'btn btn-success'
   - else 
     = render 'reservations/form'

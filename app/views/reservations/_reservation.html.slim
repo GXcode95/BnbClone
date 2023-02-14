@@ -1,23 +1,19 @@
 div id="#{dom_id reservation}"
   p
     strong Checkin:
-    =< reservation.checkin
+    =< reservation.checkin.strftime('%y/%m/%d')
   p
     strong Checkout:
-    =< reservation.checkout
+    =< reservation.checkout.strftime('%y/%m/%d')
   p
     strong Real estate:
-    =< reservation.real_estate_id
+    =< reservation.real_estate.title
   p
     strong Guest:
-    =< reservation.guest_id
-  .flex
-    p
-      strong Validated:
-      =< reservation.validated
-    - if reservation.host == current_user && !reservation.validated
-      = simple_form_for reservation do |f|
-        = f.hidden_field :validated, value: true
-        = f.submit :Validate, class: 'btn'
-      
+    =< reservation.guest.name
+  - if reservation.host == current_user && !reservation.validated
+    = simple_form_for reservation do |f|
+      = f.hidden_field :validated, value: true
+      = f.submit :Validate, class: 'btn btn-success'
+    
     

@@ -3,6 +3,6 @@ p style="color: green" = notice
 == render @reservation
 
 div
-  =< link_to "Back to reservations", reservations_path
+  =< link_to "Back to reservations", reservations_path, class: 'btn'
 
-  = button_to "Destroy this reservation", @reservation, method: :delete
+  = button_to "Destroy this reservation", @reservation, method: :delete, class: 'btn btn-error'

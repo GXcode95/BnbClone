@@ -6,6 +6,6 @@ h1 Real estates
   - @real_estates.each do |real_estate|
     == render real_estate
     p
-      = link_to "Show this real estate", real_estate
+      = link_to "Show this real estate", real_estate, class: 'btn'
 
-= link_to "New real estate", new_real_estate_path
+= link_to "New real estate", new_real_estate_path, class: 'btn btn-primary'

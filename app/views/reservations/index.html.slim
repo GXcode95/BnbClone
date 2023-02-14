@@ -6,6 +6,6 @@ h1 Reservations
   - @reservations.each do |reservation|
     == render reservation
     p
-      = link_to "Show this reservation", reservation
+      = link_to "Show this reservation", reservation, class: 'btn'
 
-= link_to "New reservation", new_reservation_path
+= link_to "New reservation", new_reservation_path, class: 'btn btn-primary'

@@ -1,6 +1,6 @@
 div class="navbar bg-base-100"
   div class="flex-1"
-    a class="btn btn-ghost normal-case text-xl" BnbClone
+    = link_to 'BnbClone', root_path, class: "btn btn-ghost normal-case text-xl" 
   div class="flex-none"
     = form_with url: '/real_estates', method: :get, class:"form-control" do |f|
       - f.text_field :city, class:"input input-bordered"
