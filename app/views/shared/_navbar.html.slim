@@ -1,0 +1,16 @@
+div class="navbar bg-base-100"
+  div class="flex-1"
+    a class="btn btn-ghost normal-case text-xl" BnbClone
+  div class="flex-none"
+    = form_with url: '/real_estates', method: :get, class:"form-control" do |f|
+      - f.text_field :city, class:"input input-bordered"
+    ul class="menu menu-horizontal px-1"
+      li = link_to 'Real Estates', real_estates_path
+      - if current_user
+        li = link_to 'My trips', reservations_path(params: { host: true })
+        li = link_to 'My rentals', reservations_path
+        li = link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete }
+      - else
+        li = link_to 'Sign in', new_user_session_path
+        li = link_to 'Sign up', new_user_registration_path
+      

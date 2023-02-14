@@ -1,7 +1,12 @@
 class RealEstatesController < ApplicationController
   load_and_authorize_resource
 
-  def index; end
+  def index
+    @real_estates = @real_estates.includes(:days).where(days: { taken: false  })
+    return unless params[:city]
+
+    @real_estates = @real_estates.by_city(City.where('lower(name) like ?', "%#{params[:city].downcase}%")) 
+  end
 
   def show
     @reservation = Reservation.new
@@ -12,6 +17,7 @@ class RealEstatesController < ApplicationController
   def edit; end
 
   def create
+    @real_estate.host = current_user
     if @real_estate.save
       redirect_to real_estate_url(@real_estate), notice: 'Real estate was successfully created.'
     else

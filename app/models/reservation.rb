@@ -32,7 +32,7 @@ class Reservation < ApplicationRecord
 
   validate :checkin_and_checkout_are_on_free_period
 
-  after_create :send_reservation_creation_mails
+  after_create :send_reservation_created_mail
   after_update :send_reservation_accepted_mail, if: -> { saved_change_to_validated? }
   after_destroy :send_reservation_canceled_mail
 

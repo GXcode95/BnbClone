@@ -39,4 +39,6 @@ class RealEstate < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 2000 }
 
   accepts_nested_attributes_for :days, allow_destroy: true
+
+  scope :by_city, ->(city) { where(city: city) }
 end
