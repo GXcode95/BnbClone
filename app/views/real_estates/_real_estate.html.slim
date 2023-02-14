@@ -13,10 +13,11 @@ div id="#{dom_id real_estate}"
     =< real_estate.estate_type
   p
     strong Price:
-    =< real_estate.price
+    =< real_estate.human_price
+    | $
   p
     strong Host:
-    =< real_estate.host_id
+    =< real_estate.host.name
   p
     strong City:
-    =< real_estate.city_id
+    =< real_estate.city.name

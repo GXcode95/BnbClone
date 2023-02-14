@@ -41,4 +41,8 @@ class RealEstate < ApplicationRecord
   accepts_nested_attributes_for :days, allow_destroy: true
 
   scope :by_city, ->(city) { where(city: city) }
+
+  def human_price
+    '%.02f' % (price.to_f / 100)
+  end
 end

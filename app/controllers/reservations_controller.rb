@@ -28,7 +28,7 @@ class ReservationsController < ApplicationController
     if @reservation.update(reservation_params)
       redirect_to reservation_url(@reservation), notice: 'Reservation was successfully updated.'
     else
-      render :edit, status: :unprocessable_entity
+      render :show, status: :unprocessable_entity
     end
   end
 
