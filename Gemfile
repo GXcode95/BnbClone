@@ -92,3 +92,6 @@ gem 'cancancan'
 
 # Use simple_form for easy form building
 gem 'simple_form'
+
+# Sugar syntax for date validations
+gem 'date_validator'

@@ -9,4 +9,7 @@
 #
 class City < ApplicationRecord
   has_many :real_estates
+  
+
+  validates :name, presence: true, length: { maximum: 30 }, uniqueness: true
 end

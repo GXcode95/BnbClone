@@ -19,4 +19,6 @@
 #
 class Day < ApplicationRecord
   belongs_to :real_estate
+
+  validates :date, presence: true, date: { after: Date.today }
 end

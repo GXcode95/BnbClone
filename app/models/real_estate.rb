@@ -33,5 +33,10 @@ class RealEstate < ApplicationRecord
   has_many :guests, through: :reservations
   has_many :days
 
+  validates :address, length: { minimumn: 7, maximum: 50 }
+  validates :title, presence: true, length: { minimumn: 10, maximum: 50 }
+  validates :estate_type, presence: true
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 2000 }
+
   accepts_nested_attributes_for :days, allow_destroy: true
 end

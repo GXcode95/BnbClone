@@ -366,3 +366,107 @@ FOREIGN KEY ("real_estate_id")
   [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(5131399083686381100)[0m
   [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
   [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUser Load (3.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user@mail.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user@mail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "user@mail.com"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["name", "user"], ["created_at", "2023-02-14 10:06:12.124957"], ["updated_at", "2023-02-14 10:06:12.124957"]]
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCity Load (1.7ms)[0m  [1m[34mSELECT "cities".* FROM "cities" WHERE "cities"."name" = $1 LIMIT $2[0m  [["name", "Philly"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCity Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "cities" WHERE "cities"."name" = $1 LIMIT $2[0m  [["name", "Philly"], ["LIMIT", 1]]
+  [1m[36mCity Create (0.9ms)[0m  [1m[32mINSERT INTO "cities" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Philly"], ["created_at", "2023-02-14 10:06:12.146163"], ["updated_at", "2023-02-14 10:06:12.146163"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRealEstate Load (3.5ms)[0m  [1m[34mSELECT "real_estates".* FROM "real_estates" WHERE "real_estates"."host_id" = $1 AND "real_estates"."city_id" = $2 AND "real_estates"."title" = $3 AND "real_estates"."estate_type" = $4 AND "real_estates"."price" = $5 LIMIT $6[0m  [["host_id", 1], ["city_id", 1], ["title", "Nice House"], ["estate_type", 1], ["price", 5000], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRealEstate Create (2.7ms)[0m  [1m[32mINSERT INTO "real_estates" ("title", "description", "address", "estate_type", "price", "host_id", "city_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["title", "Nice House"], ["description", nil], ["address", nil], ["estate_type", 1], ["price", 5000], ["host_id", 1], ["city_id", 1], ["created_at", "2023-02-14 10:06:12.220955"], ["updated_at", "2023-02-14 10:06:12.220955"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user@mail.com"], ["LIMIT", 1]]
+  [1m[36mCity Load (1.5ms)[0m  [1m[34mSELECT "cities".* FROM "cities" WHERE "cities"."name" = $1 LIMIT $2[0m  [["name", "Philly"], ["LIMIT", 1]]
+  [1m[36mRealEstate Load (3.6ms)[0m  [1m[34mSELECT "real_estates".* FROM "real_estates" WHERE "real_estates"."host_id" = $1 AND "real_estates"."city_id" = $2 AND "real_estates"."title" = $3 AND "real_estates"."estate_type" = $4 AND "real_estates"."price" = $5 LIMIT $6[0m  [["host_id", 1], ["city_id", 1], ["title", "Nice House"], ["estate_type", 1], ["price", 5000], ["LIMIT", 1]]
+  [1m[36mDay Load (3.6ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-15"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (1.9ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-15"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.434856"], ["updated_at", "2023-02-14 10:06:39.434856"]]
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.3ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-16"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.4ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-16"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.443224"], ["updated_at", "2023-02-14 10:06:39.443224"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.1ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-17"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.4ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-17"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.446842"], ["updated_at", "2023-02-14 10:06:39.446842"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.3ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-18"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.4ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-18"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.450894"], ["updated_at", "2023-02-14 10:06:39.450894"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.3ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-19"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.3ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-19"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.454813"], ["updated_at", "2023-02-14 10:06:39.454813"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-20"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.5ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-20"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.458438"], ["updated_at", "2023-02-14 10:06:39.458438"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.1ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-21"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.2ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-21"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.462356"], ["updated_at", "2023-02-14 10:06:39.462356"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.1ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-22"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.3ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-22"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.465580"], ["updated_at", "2023-02-14 10:06:39.465580"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-23"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.3ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-23"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.469002"], ["updated_at", "2023-02-14 10:06:39.469002"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.1ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-24"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.3ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-24"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.472277"], ["updated_at", "2023-02-14 10:06:39.472277"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-25"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.4ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-25"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.475619"], ["updated_at", "2023-02-14 10:06:39.475619"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.1ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-26"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.4ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-26"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.482862"], ["updated_at", "2023-02-14 10:06:39.482862"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-27"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.4ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-27"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.486350"], ["updated_at", "2023-02-14 10:06:39.486350"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-02-28"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.3ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-02-28"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.489997"], ["updated_at", "2023-02-14 10:06:39.489997"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.4ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-03-01"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.2ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-03-01"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.493651"], ["updated_at", "2023-02-14 10:06:39.493651"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-03-02"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.2ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-03-02"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.497073"], ["updated_at", "2023-02-14 10:06:39.497073"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-03-03"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.4ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-03-03"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.500526"], ["updated_at", "2023-02-14 10:06:39.500526"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-03-04"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.2ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-03-04"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.504206"], ["updated_at", "2023-02-14 10:06:39.504206"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.1ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-03-05"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.3ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-03-05"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.507564"], ["updated_at", "2023-02-14 10:06:39.507564"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.1ms)[0m  [1m[34mSELECT "days".* FROM "days" WHERE "days"."date" = $1 AND "days"."real_estate_id" = $2 LIMIT $3[0m  [["date", "2023-03-06"], ["real_estate_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDay Create (0.2ms)[0m  [1m[32mINSERT INTO "days" ("date", "taken", "real_estate_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["date", "2023-03-06"], ["taken", false], ["real_estate_id", 1], ["created_at", "2023-02-14 10:06:39.511550"], ["updated_at", "2023-02-14 10:06:39.511550"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDay Load (0.2ms)[0m  [1m[34mSELECT "days".* FROM "days"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRealEstate Load (0.2ms)[0m  [1m[34mSELECT "real_estates".* FROM "real_estates" WHERE "real_estates"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDay Update (0.3ms)[0m  [1m[33mUPDATE "days" SET "taken" = $1, "updated_at" = $2 WHERE "days"."id" = $3[0m  [["taken", true], ["updated_at", "2023-02-14 10:06:39.525517"], ["id", 11]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
