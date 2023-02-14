@@ -69,6 +69,7 @@ group :development do
   # gem 'spring'
 
   gem 'foreman'
+  gem "letter_opener"
 end
 
 group :test do
