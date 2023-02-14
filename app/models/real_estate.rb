@@ -45,4 +45,9 @@ class RealEstate < ApplicationRecord
   def human_price
     '%.02f' % (price.to_f / 100)
   end
+
+  def clean_reservations(checkin, checkout)
+    reservations.where('checkin > ? AND checkin < ?', checkin, checkout).destroy_all
+    reservations.where('checkout < ? AND checkout > ?', checkout, checkin).destroy_all
+  end
 end

@@ -37,7 +37,7 @@ class Reservation < ApplicationRecord
 
   after_create :send_reservation_created_mail
   after_update :send_reservation_accepted_mail, if: -> { saved_change_to_validated?(to: true) }
-  after_update :set_days_as_taken, if: -> { saved_change_to_validated?(to: true) }
+  after_update :set_days_as_taken_and_clean_reservations, if: -> { saved_change_to_validated?(to: true) }
   after_destroy :send_reservation_canceled_mail
 
   def period_days
@@ -46,18 +46,19 @@ class Reservation < ApplicationRecord
     duration = checkout.mjd - checkin.mjd
     period_days = []
     duration.times { |i| period_days << checkin + i.day }
-    period_days = real_estate.days.where(date: period_days)
+    real_estate.days.where(date: period_days)
   end
-  
+
   private
 
   def checkin_and_checkout_are_on_free_period
     return unless real_estate
 
     duration = checkout.mjd - checkin.mjd
-    
+
     curr_period_days = period_days
     return unless curr_period_days.size != duration || (curr_period_days.any? && curr_period_days.where(taken: true).any?)
+
 
     errors.add(:checkout, 'some days of the selected period aren\'t available')
     errors.add(:checkin, 'some days of the selected period aren\'t available')
@@ -100,7 +101,9 @@ class Reservation < ApplicationRecord
     ).deliver_now
   end
 
-  def set_days_as_taken
-    periods_days.update_all(taken: true)
+  def set_days_as_taken_and_clean_reservations
+    period_days.each { |day| day.update_columns(taken: true) }
+
+    real_estate.clean_reservations(checkin, checkout)
   end
 end
