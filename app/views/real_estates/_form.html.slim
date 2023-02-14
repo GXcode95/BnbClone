@@ -1,15 +1,30 @@
 = simple_form_for(@real_estate) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+  div data-controller="nested-form"
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  .form-inputs
-    = f.input :title
-    = f.input :description
-    = f.input :address
-    = f.input :estate_type
-    = f.input :price
-    = f.association :host
-    = f.association :city
+    template data-nested-form-target="template"
+      = f.simple_fields_for :days, Day.new, child_index: 'NEW_RECORD', class: 'DAY_INPUT' do |day|
+        = render partial: "days/day_fields", locals: { f: day }
 
-  .form-actions
-    = f.button :submit
+    .form-inputs
+      = f.input :title
+      = f.input :description
+      = f.input :address
+      label Estate type
+      = f.input_field :estate_type, as: :select, collection: RealEstate.estate_types
+      = f.input :price
+      div 
+        label City:
+        = f.input_field :city_id, as: :select, collection: Hash[City.all.pluck(:name).zip(City.all.ids)]
+
+    div
+      h2 Select days to rent:
+      = f.simple_fields_for :days do |day|
+        = render partial: "days/day_fields", locals: { f: day }
+        
+    div data-nested-form-target="links"
+      = link_to 'Add a day', '#', class: "btn", data: { action: "nested-form#add_association"}
+      br
+      = f.submit class: "btn"
+

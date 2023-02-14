@@ -1,0 +1,6 @@
+div.nested-fields.flex.items-center
+  = f.input :date, as: :date
+  = link_to( 'X',
+            "#",
+            data: { action: "nested-form#remove_association" },
+            class: 'text-red')

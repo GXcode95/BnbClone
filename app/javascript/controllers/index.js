@@ -6,7 +6,9 @@ import { application } from "./application"
 
 import DatepickerController from "./datepicker_controller"
 import HelloController from "./hello_controller"
+import NestedFormController from "./nested_form_controller";
 
 
 application.register("hello", HelloController)
 application.register("datepicker", DatepickerController)
+application.register("nested-form", NestedFormController);
