@@ -24,6 +24,7 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    @real_estate = @reservation.real_estate
     if @reservation.update(reservation_params)
       redirect_to reservation_url(@reservation), notice: 'Reservation was successfully updated.'
     else

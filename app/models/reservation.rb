@@ -25,7 +25,7 @@ class Reservation < ApplicationRecord
   belongs_to :real_estate
   belongs_to :guest, class_name: :User
 
-  has_one :host, through: :real_estate•
+  has_one :host, through: :real_estate
 
   validates :checkin, presence: true, date: { after_or_equal_to: Date.today }
   validates :checkout, presence: true, date: { after: :checkin,  message: 'must must be at least one day after checkin.' }
@@ -36,19 +36,28 @@ class Reservation < ApplicationRecord
   scope :by_guest, ->(guest) { where(guest: guest) }
 
   after_create :send_reservation_created_mail
-  after_update :send_reservation_accepted_mail, if: -> { saved_change_to_validated? }
+  after_update :send_reservation_accepted_mail, if: -> { saved_change_to_validated?(to: true) }
+  after_update :set_days_as_taken, if: -> { saved_change_to_validated?(to: true) }
   after_destroy :send_reservation_canceled_mail
 
-  private
-
-  def checkin_and_checkout_are_on_free_period
+  def period_days
     return unless real_estate
 
     duration = checkout.mjd - checkin.mjd
     period_days = []
     duration.times { |i| period_days << checkin + i.day }
     period_days = real_estate.days.where(date: period_days)
-    return unless period_days.size != duration || (period_days.any? && period_days.where(taken: true).any?)
+  end
+  
+  private
+
+  def checkin_and_checkout_are_on_free_period
+    return unless real_estate
+
+    duration = checkout.mjd - checkin.mjd
+    
+    curr_period_days = period_days
+    return unless curr_period_days.size != duration || (curr_period_days.any? && curr_period_days.where(taken: true).any?)
 
     errors.add(:checkout, 'some days of the selected period aren\'t available')
     errors.add(:checkin, 'some days of the selected period aren\'t available')
@@ -89,5 +98,9 @@ class Reservation < ApplicationRecord
       reservation_date: checkin,
       estate_title: real_estate.title
     ).deliver_now
+  end
+
+  def set_days_as_taken
+    periods_days.update_all(taken: true)
   end
 end

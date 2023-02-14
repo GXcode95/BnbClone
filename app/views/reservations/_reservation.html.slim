@@ -11,6 +11,13 @@ div id="#{dom_id reservation}"
   p
     strong Guest:
     =< reservation.guest_id
-  p
-    strong Validated:
-    =< reservation.validated
+  .flex
+    p
+      strong Validated:
+      =< reservation.validated
+    - if reservation.host == current_user && !reservation.validated
+      = simple_form_for reservation do |f|
+        = f.hidden_field :validated, value: true
+        = f.submit :Validate, class: 'btn'
+      
+    
