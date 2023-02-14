@@ -1,4 +1,4 @@
 ' hello #{@user_name}, a new reservatio has been created for #{@estate_title} on #{@reservation_date} has been created !
 ' you can follow this link to approve it:
-= link_to 'this link', @estate_path
+= link_to 'this link', "#{ENV['BASE_URL']}#{@estate_path}"
 ' Bye !

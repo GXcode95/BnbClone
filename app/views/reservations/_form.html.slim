@@ -1,13 +1,13 @@
-= simple_form_for(@reservation) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+div data-controller="datepicker"
+  h2.mt-5 Reservate
+  = simple_form_for @reservation do |f|
+    = f.hidden_field :real_estate_id, value: @real_estate.id
+    = f.input :checkin, as: :string
+    = f.input :checkout, as: :string, disabled: true
+    = f.submit
 
-  .form-inputs
-    = f.input :checkin
-    = f.input :checkout
-    = f.association :real_estate
-    = f.association :guest
-    = f.input :validated
+  #calendar
 
-  .form-actions
-    = f.button :submit
+
+javascript:
+  let days = #{@real_estate.days.order(:date).to_json.html_safe}

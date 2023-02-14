@@ -9,7 +9,9 @@ class ReservationsController < ApplicationController
 
   def new; end
 
-  def edit; end
+  def edit
+    @real_estate = @reservation.real_estate
+  end
 
   def create
     @reservation.guest = current_user

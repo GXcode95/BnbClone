@@ -12,7 +12,7 @@ class UserMailer < ApplicationMailer
     @user_name = user_name
     @reservation_date = reservation_date
     @estate_title = estate_title
-    @estate_path = "/estate/#{estate_id}"
+    @estate_path = "/real_estates/#{estate_id}"
 
     mail(to: email,
          subject: 'New reservation !')
