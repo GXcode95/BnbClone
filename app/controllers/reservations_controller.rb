@@ -1,4 +1,5 @@
 class ReservationsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   load_and_authorize_resource
 
   def index
@@ -6,8 +7,6 @@ class ReservationsController < ApplicationController
   end
 
   def show; end
-
-  def new; end
 
   def edit
     @real_estate = @reservation.real_estate
