@@ -8,7 +8,14 @@ RUN apt-get update -qq && apt-get install -yq --no-install-recommends \
     libpq-dev \
     postgresql-client \
     libvips \
+    curl \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install Yarn
+RUN curl https://deb.nodesource.com/setup_14.x | bash
+RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y nodejs yarn
 
 ENV LANG=C.UTF-8 \
   BUNDLE_JOBS=4 \
@@ -25,5 +32,5 @@ ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
+CMD ["yarn install && foreman start -f Procfile.dev"]
 
