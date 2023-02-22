@@ -1,22 +1,12 @@
 This app was created for a tech test, i had to create an AirBnb clone with rails in ~4 hours.
-To run with Docker:
+# To run without docker:
   ```
-    cp .env.docker.example .env
-    docker compose build
-    docker compose run --rm web bin/rails db:setup
-    dc up
-  ```
-To run without docker:
-  ```
-    cp. env.evample .env
+    cp env.evample .env
     bundle install
-    rails db:create db:migrate
-    bin/dev 
+    yarn install
+    rails db:create db:migrate db:seed
+    bin/dev
   ```
-  and in an other terminal run 
-  ```
-   rails s
-  ```
-  
-  If you want the bin/dev script to run `rails s` too juste uncomment the first line of `Procfile.dev`
+# Docker:
+The app isn't working with docker atm. It seems that assets precompile is not done correctly, I tried some modifications without result. I'm not very used to docker and I would have to stay longer to understand what's going wrong. I could take a look this weekend if you want.
   
