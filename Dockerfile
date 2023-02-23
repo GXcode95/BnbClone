@@ -31,6 +31,3 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 EXPOSE 3000
-
-CMD ["yarn install && foreman start -f Procfile.dev"]
-
